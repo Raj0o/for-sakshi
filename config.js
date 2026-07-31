@@ -12,7 +12,7 @@ const CONFIG = {
 
   // Paste your Formspree form endpoint here, e.g.
   // "https://formspree.io/f/abcdwxyz"
-  formspreeEndpoint: "PASTE_YOUR_FORMSPREE_ENDPOINT_HERE",
+  formspreeEndpoint: "https://formspree.io/f/mykrabgr",
 
   // Background music — drop an mp3 at this path
   musicSrc: "assets/music/song.mp3",
