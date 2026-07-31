@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>For Sakshi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Ambient background layers -->
+<div class="ambient">
+  <div class="grain"></div>
+  <div class="glow glow-a"></div>
+  <div class="glow glow-b"></div>
+  <canvas id="particles"></canvas>
+</div>
+
+<!-- Progress dots -->
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- Floating glass music player -->
+<div class="player" id="player">
+  <button class="player-btn" id="playPause" aria-label="Play music">
+    <svg id="iconPlay" viewBox="0 0 24 24" width="16" height="16"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+    <svg id="iconPause" viewBox="0 0 24 24" width="16" height="16" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z" fill="currentColor"/></svg>
+  </button>
+  <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5" />
+</div>
+<audio id="bgMusic" loop></audio>
+
+<main id="stage">
+
+  <!-- SCENE 1 — Intro -->
+  <section class="scene active" data-scene="intro">
+    <div class="scene-inner center">
+      <p class="eyebrow reveal">for someone special</p>
+      <h1 class="display-xl reveal" id="introTitle">Happy <span class="accent">Sakshi's</span> Day</h1>
+      <span class="heart-mark reveal">❤</span>
+      <p class="tap-hint reveal">tap anywhere to continue</p>
+    </div>
+  </section>
+
+  <!-- SCENE 2 — Hero merge -->
+  <section class="scene" data-scene="hero">
+    <div class="hero-stage">
+      <img class="hero-photo hero-you" id="heroYou" alt="" />
+      <img class="hero-photo hero-her" id="heroHer" alt="" />
+      <img class="hero-photo hero-merged" id="heroMerged" alt="" />
+      <div class="hero-veil"></div>
+    </div>
+    <p class="caption-line hero-caption" id="heroCaption"></p>
+  </section>
+
+  <!-- SCENE 3 — Polaroids -->
+  <section class="scene" data-scene="polaroids">
+    <div class="scene-inner center">
+      <p class="eyebrow reveal">little pieces of us</p>
+      <div class="polaroid-row" id="polaroidRow"></div>
+    </div>
+  </section>
+
+  <!-- SCENE 4 — caption -->
+  <section class="scene" data-scene="caption1">
+    <div class="scene-inner center">
+      <p class="display-line reveal">This day still makes me smile.</p>
+    </div>
+  </section>
+
+  <!-- SCENE 5 — Then / Now -->
+  <section class="scene" data-scene="thennow">
+    <div class="scene-inner center">
+      <p class="eyebrow reveal">then &amp; now</p>
+      <div class="then-now-row" id="thenNowRow"></div>
+    </div>
+  </section>
+
+  <!-- SCENE 6 — caption -->
+  <section class="scene" data-scene="caption2">
+    <div class="scene-inner center">
+      <p class="display-line reveal">I wish I could relive this moment.</p>
+    </div>
+  </section>
+
+  <!-- SCENE 7 — Masonry collage -->
+  <section class="scene" data-scene="collage">
+    <div class="scene-inner center">
+      <p class="eyebrow reveal">a few more, just because</p>
+      <div class="masonry" id="masonryRow"></div>
+    </div>
+  </section>
+
+  <!-- SCENE 8 — caption -->
+  <section class="scene" data-scene="caption3">
+    <div class="scene-inner center">
+      <p class="display-line reveal">Some memories never fade.</p>
+    </div>
+  </section>
+
+  <!-- SCENE 9 — The Letter -->
+  <section class="scene" data-scene="letter">
+    <div class="scene-inner center" id="envelopeWrap">
+      <p class="eyebrow reveal">one more thing</p>
+      <div class="envelope" id="envelope">
+        <div class="envelope-flap"></div>
+        <div class="envelope-body"></div>
+        <button class="wax-seal" id="waxSeal" aria-label="Open the letter">
+          <span>S</span>
+        </button>
+      </div>
+      <p class="tap-hint reveal">tap the seal to open</p>
+    </div>
+    <div class="letter-paper" id="letterPaper">
+      <div class="letter-text" id="letterText"></div>
+      <button class="btn-ghost" id="letterContinue">continue</button>
+    </div>
+  </section>
+
+  <!-- SCENE 10 — Questions -->
+  <section class="scene" data-scene="questions">
+    <div class="scene-inner center">
+      <form id="qForm" class="q-form">
+        <p class="eyebrow reveal">just a little something back</p>
+
+        <div class="q-block">
+          <label class="q-label">Did this make you smile?</label>
+          <div class="q-buttons">
+            <button type="button" class="pill-btn" data-value="YES ❤️">YES ❤️</button>
+            <button type="button" class="pill-btn" data-value="ABSOLUTELY ❤️">ABSOLUTELY ❤️</button>
+          </div>
+          <input type="hidden" name="Did this make you smile" id="smileAnswer" />
+        </div>
+
+        <div class="q-block">
+          <label class="q-label" for="favMemory">Which memory is your favorite?</label>
+          <textarea class="q-textarea" id="favMemory" name="Favorite memory" rows="2"></textarea>
+        </div>
+
+        <div class="q-block">
+          <label class="q-label" for="wantToDo">What's something you want us to do together?</label>
+          <textarea class="q-textarea" id="wantToDo" name="Something to do together" rows="2"></textarea>
+        </div>
+
+        <div class="q-block">
+          <label class="q-label" for="message">Leave a message for me ❤️</label>
+          <textarea class="q-textarea" id="message" name="Message" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn-solid" id="qSubmit">Send it to him</button>
+        <p class="q-status" id="qStatus"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- SCENE 11 — Ending -->
+  <section class="scene" data-scene="ending">
+    <div class="scene-inner center">
+      <div id="endingLines"></div>
+      <button class="final-heart" id="finalHeart" aria-label="Tap the heart">❤</button>
+      <canvas id="heartBurst"></canvas>
+    </div>
+  </section>
+
+</main>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
